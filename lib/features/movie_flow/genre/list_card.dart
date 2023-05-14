@@ -14,6 +14,7 @@ class ListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //UnconstrainedBox allows for independent sizing despite the parent ListView
     return UnconstrainedBox(
       child: Material(
         color: genre.isSelected
