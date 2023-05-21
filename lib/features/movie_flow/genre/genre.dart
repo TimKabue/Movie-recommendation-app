@@ -2,17 +2,19 @@ import 'package:flutter/foundation.dart';
 
 @immutable //TODO: What is @immutable? *UNIDIRECTIONAL DATA FLOW*
 class Genre {
+  //---Instance fields
   final String name;
   final bool isSelected;
   final int id;
 
+  //---Default Constructor
   const Genre({
     required this.name,
     this.id = 0,
     this.isSelected = false,
   });
   
-  //Method: Returns a Genre object
+  //---Instance method 'toggleSelected': Returns a Genre object
   Genre toggleSelected(){
     return Genre(name: name, id: id, isSelected: !isSelected);
   }

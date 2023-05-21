@@ -3,7 +3,7 @@ import 'package:movie_recommendation/features/movie_flow/genre/genre.dart';
 
 @immutable
 class Movie {
-  //---Object fields
+  //---Instance fields
   final String title;
   final String overview;
   final num voteAverage;
