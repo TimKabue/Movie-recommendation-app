@@ -1,32 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_recommendation/core/constants.dart';
 import 'package:movie_recommendation/core/widgets/primary_button.dart';
+import 'package:movie_recommendation/features/movie_flow/movie_flow_controller.dart';
 
 import '../result/result_screen.dart';
 
-class YearsBackScreen extends StatefulWidget {
-  const YearsBackScreen({
-    Key? key,
-    required this.nextPage,
-    required this.previousPage,
-  }) : super(key: key);
+class YearsBackScreen extends ConsumerWidget {
 
-  final VoidCallback nextPage;
-  final VoidCallback previousPage;
-
-  @override
-  State<YearsBackScreen> createState() => _YearsBackScreenState();
-}
-
-class _YearsBackScreenState extends State<YearsBackScreen> {
   double yearsBack = 10; //State
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
-          onPressed: widget.previousPage,
+          onPressed: ref.read(movieFlowControllerProvider.notifier).previousPage,
         ),
       ),
       body: Center(
@@ -42,7 +31,7 @@ class _YearsBackScreenState extends State<YearsBackScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '${yearsBack.ceil()}',
+                  '${ref.watch(movieFlowControllerProvider).yearsBack}',
                   style: theme.textTheme.headlineMedium,
                 ),
                 Text(
@@ -55,15 +44,13 @@ class _YearsBackScreenState extends State<YearsBackScreen> {
             ),
             const Spacer(),
             Slider(
-              value: yearsBack,
+              value: ref.watch(movieFlowControllerProvider).yearsBack.toDouble(),
               min: 0.0,
               max: 70.0,
               divisions: 70,
-              label: '${yearsBack.ceil()}',
+              label: '${ref.watch(movieFlowControllerProvider).yearsBack}',
               onChanged: (value) {
-                setState(() {
-                  yearsBack = value;
-                });
+                ref.read(movieFlowControllerProvider.notifier).updateYearsBack(value.toInt());
               },
             ),
             const Spacer(),
